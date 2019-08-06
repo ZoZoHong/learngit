@@ -1,0 +1,8 @@
+ 
+ git config name email
+ 
+ git add 添加文件
+ git status 查看当前状态,并返回有什么事未做
+ git commit 提交文件并注释
+ git diff 查看改动地方不同
+ 
