@@ -37,4 +37,35 @@
 	此后,每次本地提交后,只要有必要,就可以使用命令git push origin master推送最新的修改;
 	分布式版本的最大好处之一就是在本地工作完全不需要考虑远程库的存在,也就是有没有联网都可以正常工作,
 	而SVN在没有联网的时候是拒绝干活的!当有网络的时候,再把本地提交推送一下就完成了同步,非常方便.
+ B. 克隆仓库
+	要克隆一个仓库,首先必须知道仓库的地址,然后使用git clone 命令克隆
+	git支持多种协议,包括 https,但通过ssh支持的原生 git 协议速度最快.
+	git clone git@github.com:name/filename.git
+ 三.分支管理
+ A. 创建与合并分支
+	查看分支 git branch
+	创建分支 git branch <name>
+	切换分支 git checkout <name>
+	创建切换分支 git checkout -b <name>
+	合并到当前分支 git merge <name>
+	删除分支 git branch -d <name>
+ B. 解决冲突
+	当Git 无法自动合并分支时,就必须首先解决冲突.解决冲突后,再提交,合并完成.
+	解决冲突就是把Git 合并失败的文件手动编辑为我们希望的内容,再提交.
+	git log --graph 命令可以看到分支合并图
+ C. 分支管理策略
+	尽量使用 git merge --no-ff -m"message" <name> 
+	在实际开发中,我们应该按照几个基本原则进行分支管理:
+	首先 master 分支应该是非常稳定的,也就是仅用来发布新版本,平时不能在上面干活;
+	干活都在 dev 分支,也就是说,dev分支是最不稳定的,用到时在往master上合并;
+	#每个人都有自己的分支,时不时地往dev分支上合并就可以了.
+	fast forward 合并是看不出曾经做过修改的
+ D. BUG分支
+	修复bug时,我们会通过创建新的bug分支进行修复,然后合并,最后删除;
+	当手头工作没有完成时,先把工作现场git stash一下,然后去修复bug,修复后,再 git stash pop ,回到工作现场;
+	在master分支上修复的bug,想要合并到当前的dev分支,可以gitcherry-pick <commit> 命令,把bug提交的修改"复制"
+	到当前分支,避免重复运动.
+ E. Feature分支
+	软件开发中,添加一个新功能时,最好新建一个feature分支,在上面开发,完成后,合并,最后删除该feature分支.
+	如果要丢弃一个没有被合并过的分支,可以通过 git branch -D <name> 强行删除
 	
